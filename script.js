@@ -37,7 +37,7 @@ window.addEventListener("load", () => {
     "'Rubik Mono One', sans-serif",
   ];
 
-  
+
   const colors = [
     "#ff6f61", // Coral
     "#6B5B95", // Roxo
@@ -66,7 +66,7 @@ window.addEventListener("load", () => {
         letra.style.color = colorAleatoria;
         letra.style.fontFamily = fonteAleatoria;
       },
-      
+
       onComplete: () => {
         gsap.to(letra, {
           delay: 0.8,   // pequena pausa para que a fonte aleatória seja percebida
@@ -177,7 +177,7 @@ window.addEventListener('scroll', function () {
   const linksNav = document.querySelector('.links-horizontal');
 
   if (firstSection) {
-    const firstSectionHeight = firstSection.offsetHeight;
+    var firstSectionHeight = firstSection.offsetHeight;
 
     if (window.scrollY < firstSectionHeight * 0.8) {
       linksNav.classList.remove('hidden');
@@ -189,7 +189,23 @@ window.addEventListener('scroll', function () {
       menuBar.classList.remove('hidden');
     }
   }
+
+window.addEventListener('click', function () {
+  const menuHamburguer = document.getElementById('toggleChecker');
+  const menuAberto = document.querySelector('.menu-aberto');
+
+  if (menuHamburguer.checked) {
+    menuAberto.style.display = 'block';
+
+  } else {
+    menuAberto.style.display = 'none';
+  }
 });
+
+});
+
+
+
 
 // Inicia com o nome oculto
 document.addEventListener('DOMContentLoaded', function () {
@@ -216,20 +232,20 @@ document.querySelectorAll('.section-label').forEach(label => {
 
 // ... (mantenha o código anterior do loader até o item 7)
 
-  // 7) Some com o overlay e libera o scroll
-  gsap.to(".loader-inicial", {
-    duration: 6.4,
-    onComplete: () => {
-      const overlay = document.querySelector(".loader-inicial");
-      if (overlay) {
-        overlay.style.display = "none";
-      }
-      document.body.classList.remove("no-scroll");
-      
-      // CHAMA AS ANIMAÇÕES DO SITE AQUI!
-      startMainAnimations();
-    },
-  });
+// 7) Some com o overlay e libera o scroll
+gsap.to(".loader-inicial", {
+  duration: 6.4,
+  onComplete: () => {
+    const overlay = document.querySelector(".loader-inicial");
+    if (overlay) {
+      overlay.style.display = "none";
+    }
+    document.body.classList.remove("no-scroll");
+
+    // CHAMA AS ANIMAÇÕES DO SITE AQUI!
+    startMainAnimations();
+  },
+});
 
 // Nova função para agrupar as animações do site
 function startMainAnimations() {
@@ -249,7 +265,7 @@ function startMainAnimations() {
 
   // ANIMAÇÃO DE REVELAÇÃO CURVA
   // Agora animamos a cortina separadamente para não afetar o conteúdo
-  
+
   gsap.to(".reveal-curtain", {
     clipPath: "ellipse(150% 100% at 50% 50%)",
     ease: "none",
@@ -257,23 +273,23 @@ function startMainAnimations() {
       trigger: "#apresentacao",
       start: "top 30%", // Só começa a achatar quando o topo estiver quase no topo da tela (30%)
       end: "bottom top", // Só fica 100% reto quando o fundo da seção sair da tela
-      scrub: true,         
+      scrub: true,
     }
   });
 
   // Animação da seção de projetos (se ainda quiser curva nela)
   gsap.to("#section-projs", {
-    clipPath: "ellipse(150% 100% at 50% 50%)", 
+    clipPath: "ellipse(150% 100% at 50% 50%)",
     ease: "none",
     scrollTrigger: {
       trigger: "#section-projs",
-      start: "top 30%", 
-      end: "bottom top", 
-      scrub: true,         
+      start: "top 30%",
+      end: "bottom top",
+      scrub: true,
     }
   });
 
- 
+
   // Se você tiver outras animações (ScrollTrigger, etc), coloque-as aqui
 
 }
