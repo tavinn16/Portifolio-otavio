@@ -168,54 +168,72 @@ document.addEventListener("DOMContentLoaded", initPortfolioCards);
 
 
 // ============================================
-// Navbar - Exibir nome ao rolar a página
+// Navbar - Exibir nome ao rolar a página e Controle do Menu
 // ============================================
-window.addEventListener('scroll', function () {
+document.addEventListener('DOMContentLoaded', function () {
   const nameNav = document.querySelector('.name-nav');
   const menuBar = document.querySelector('.checkboxtoggler');
-  const firstSection = document.querySelector('section'); // ou a classe da sua primeira seção
   const linksNav = document.querySelector('.links-horizontal');
-
-  if (firstSection) {
-    var firstSectionHeight = firstSection.offsetHeight;
-
-    if (window.scrollY < firstSectionHeight * 0.8) {
-      linksNav.classList.remove('hidden');
-      nameNav.classList.add('hidden');
-      menuBar.classList.add('hidden');
-    } else {
-      linksNav.classList.add('hidden');
-      nameNav.classList.remove('hidden');
-      menuBar.classList.remove('hidden');
-    }
-  }
-
-window.addEventListener('click', function () {
+  const firstSection = document.querySelector('section');
   const menuHamburguer = document.getElementById('toggleChecker');
   const menuAberto = document.querySelector('.menu-aberto');
 
-  if (menuHamburguer.checked) {
-    menuAberto.style.display = 'block';
+  // Inicializa oculto
+  nameNav?.classList.add('hidden');
+  menuBar?.classList.add('hidden');
 
-  } else {
-    menuAberto.style.display = 'none';
-  }
+  // Controle do scroll
+  window.addEventListener('scroll', function () {
+    if (firstSection) {
+      const firstSectionHeight = firstSection.offsetHeight;
+      const scrollY = window.scrollY;
+
+      if (scrollY < firstSectionHeight * 0.8) {
+        linksNav?.classList.remove('hidden');
+        nameNav?.classList.add('hidden');
+        menuBar?.classList.add('hidden');
+        
+        // Fecha o menu se estiver aberto ao voltar ao topo
+        if (menuHamburguer.checked) {
+          menuHamburguer.checked = false;
+          menuAberto.classList.remove('ativo');
+        }
+      } else {
+        linksNav?.classList.add('hidden');
+        nameNav?.classList.remove('hidden');
+        menuBar?.classList.remove('hidden');
+      }
+    }
+  });
+
+  // Controle do clique no hamburguer (via checkbox)
+  menuHamburguer?.addEventListener('change', function () {
+    if (this.checked) {
+      menuAberto.classList.add('ativo');
+    } else {
+      menuAberto.classList.remove('ativo');
+    }
+  });
+
+  // Fechar ao clicar fora
+  document.addEventListener('click', function (event) {
+    const isClickInsideMenu = menuAberto.contains(event.target);
+    const isClickOnHamburger = document.querySelector('.menu-haburguer').contains(event.target);
+
+    if (menuHamburguer.checked && !isClickInsideMenu && !isClickOnHamburger) {
+      menuHamburguer.checked = false;
+      menuAberto.classList.remove('ativo');
+    }
+  });
+
+  // Fechar ao clicar em um link do menu
+  document.querySelectorAll('.links-menu a').forEach(link => {
+    link.addEventListener('click', () => {
+      menuHamburguer.checked = false;
+      menuAberto.classList.remove('ativo');
+    });
+  });
 });
-
-});
-
-
-
-
-// Inicia com o nome oculto
-document.addEventListener('DOMContentLoaded', function () {
-  document.querySelector('.name-nav').classList.add('hidden');
-});
-
-document.addEventListener('DOMContentLoaded', function () {
-  document.querySelector('.checkboxtoggler').classList.add('hidden');
-});
-
 
 // Scroll suave ao clicar nos links
 document.querySelectorAll('.section-label').forEach(label => {

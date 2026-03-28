@@ -263,19 +263,99 @@ body::-webkit-scrollbar {
 
 .menu-aberto {
   position: fixed;
-  display: none;
-  width: 50%;
-  height: 90vh;
-  border-radius: 20px;
-  transform: translateX(0);
+  top: 10vh; /* Ajustado para dar mais espaço */
+  right: 5vw;
+  width: 800px; /* Aumentado para acomodar links e vídeo lado a lado */
+  height: 80vh; /* Altura um pouco menor para o formato horizontal */
   background-color: #daa520;
   z-index: 999;
+  border-radius: 25px;
+  transform: translateX(150%);
+  transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
+  display: flex;
+  flex-direction: row; /* Divisão horizontal */
+  justify-content: space-between;
+  align-items: stretch;
+  box-shadow: -15px 15px 40px rgba(0,0,0,0.6);
+  overflow: hidden;
+  padding: 0; /* Padding interno será controlado pelos containers filhos */
 }
 
-.menu-aberto.hidden {
-  opacity: 0;
-  transform: translateX(100%);
-  transition: transform 0.3s ease;
+.menu-aberto.ativo {
+  transform: translateX(0);
+}
+
+/*SE ATENTAR NESSA PARTE PQ EU SE NÃO DA ERRO NO BACKGROUND DO MENU, FAZER COM QUE O EFEITO DE BLUR FIQUE ATRÁS...*/
+.bg-glass-menu {
+  position: absolute;
+  inset: 0;
+  background: rgba(165, 165, 165, 0.266);
+  backdrop-filter: blur(10px);
+  z-index: -9999;
+}
+
+.menu-links-container {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+}
+
+.menu-video-container {
+  flex: 1.5; /* Lado do vídeo um pouco maior */
+  background: rgba(0, 0, 0, 0);
+  display: flex;
+  flex-direction: column;
+  padding: 30px;
+  justify-content: flex-start;
+}
+
+.top-text-video {
+  margin-bottom: 15px;
+  padding: 5px 0;
+}
+
+.top-text-video p {
+  font-size: 13px;
+  color: #fff;
+  opacity: 0.8;
+  font-family: 'Roboto', sans-serif;
+  letter-spacing: 1px;
+}
+
+.video-container-placeholder {
+  width: 100%;
+  flex-grow: 1; /* Ocupa o restante do espaço vertical */
+  background: rgba(0,0,0,0.3);
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px dashed rgba(255,255,255,0.2);
+}
+
+.links-menu {
+  list-style: none;
+  padding: 0;
+  text-align: center;
+  width: 100%;
+}
+
+.links-menu li {
+  margin: 20px 0;
+}
+
+.links-menu a {
+  color: white;
+  text-decoration: none;
+  font-size: 24px;
+  font-family: 'Orbitron', sans-serif;
+  transition: color 0.3s ease;
+}
+
+.links-menu a:hover {
+  color: aqua;
 }
 
 /*estilo da primeira seção*/
