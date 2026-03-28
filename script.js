@@ -172,16 +172,19 @@ document.addEventListener("DOMContentLoaded", initPortfolioCards);
 // ============================================
 window.addEventListener('scroll', function () {
   const nameNav = document.querySelector('.name-nav');
-  const menuBar = document.querySelector('.checkboxtoggler')
+  const menuBar = document.querySelector('.checkboxtoggler');
   const firstSection = document.querySelector('section'); // ou a classe da sua primeira seção
+  const linksNav = document.querySelector('.links-horizontal');
 
   if (firstSection) {
     const firstSectionHeight = firstSection.offsetHeight;
 
     if (window.scrollY < firstSectionHeight * 0.8) {
+      linksNav.classList.remove('hidden');
       nameNav.classList.add('hidden');
       menuBar.classList.add('hidden');
     } else {
+      linksNav.classList.add('hidden');
       nameNav.classList.remove('hidden');
       menuBar.classList.remove('hidden');
     }
@@ -249,7 +252,6 @@ function startMainAnimations() {
   
   gsap.to(".reveal-curtain", {
     clipPath: "ellipse(150% 100% at 50% 50%)",
-    borderTop: "2px solid #ffffff",
     ease: "none",
     scrollTrigger: {
       trigger: "#apresentacao",
