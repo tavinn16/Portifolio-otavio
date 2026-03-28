@@ -1,0 +1,15 @@
+/* Canvas da primeira seção — cobre 100% da área, atrás do conteúdo */
+#intro-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Garantia: a seção 'introduction' precisa ser posicionada */
+#introduction {
+  position: relative;
+  overflow: hidden;
+}

@@ -1,0 +1,560 @@
+/* Reset básico */
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+/* Variável CSS customizada para corrigir o bug de 100vh em mobile.
+   JS define --vh com base em window.innerHeight, permitindo usar
+   calc(var(--vh) * N) como fallback quando 100dvh não estiver disponível. */
+:root {
+  --vh: 1vh;
+}
+
+html,
+body {
+  height: auto;
+  min-height: 100%;
+}
+
+body {
+  background-color: #111318;
+  color: white;
+}
+
+/* Bloqueia scroll enquanto o loader estiver ativo */
+body.no-scroll {
+  overflow: hidden;
+}
+
+body::-webkit-scrollbar {
+  display: none;
+}
+
+
+/* Esconde as seções principais inicialmente */
+#introduction, 
+#section-projs, 
+.navbar, 
+.sidebar {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.5s ease;
+}
+
+/* Classe para mostrar o conteúdo */
+.content-visible {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/* LOADER como overlay independente.
+   - position: fixed: fixa na viewport, não rola com a página
+   - inset: 0: simplifica top/right/bottom/left = 0
+   - height: 100dvh: usa viewport dinâmico moderno (inclui barras do sistema)
+   - height: calc(var(--vh) * 100): fallback para navegadores sem dvh */
+.loader-inicial {
+  display: flex;
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100dvh;
+  height: calc(var(--vh) * 100);
+  background-color: #000000;
+  flex-direction: column;
+  z-index: 9999; /* camadas acima de todo o conteúdo */
+  margin: 0;
+  overflow: hidden;
+  align-items: flex-start;
+}
+
+.loader-otavio {
+  margin-top: 50dvh; /* centraliza verticalmente de forma responsiva */
+  margin-top: calc(var(--vh) * 50); /* fallback para o bug de 100vh */
+  padding-left: 50px;
+}
+
+.loader-henrique,
+.loader-portifolio {
+  position: relative;
+  padding-left: 50px;
+}
+
+.letter-otavio,
+.letter-henrique,
+.letter-portifolio {
+  font-size: 70px;
+  transition: 1s ease-out;
+}
+
+/*estilo do site após loader*/
+.sidebar {
+  position: absolute;
+  left: 60px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1000;
+}
+
+.sidebar-line {
+  position: relative;
+  width: 1px;
+  height: 60vh;
+  background: linear-gradient(to bottom, #ffffff, #ffffff);
+  margin: 0 auto;
+}
+
+.dot {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 7px;
+  height: 7px;
+  background-color: #ffffff;
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(108, 99, 255, 0.5);
+}
+
+.dot.top {
+  top: -5px;
+}
+
+.dot.bottom {
+  bottom: -5px;
+}
+
+.section-label {
+  position: absolute;
+  right: 20px;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  color: #ffffff;
+  font-size: 14px;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.section-label:hover {
+  color: #6c63ff;
+}
+
+.label-1 {
+  top: 20px;
+}
+
+.label-2 {
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.label-3 {
+  bottom: 20px;
+}
+
+/*estilo da navbar*/
+.navbar {
+  position: fixed;
+  width: 100%;
+  height: 3.5em;
+  background-color: transparent;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 3em;
+  box-sizing: border-box;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+}
+
+.name-nav.hidden {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+/*Estilo do menu hamburguer da navbar*/
+
+
+.checkboxtoggler {
+  width: 2em;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7em;
+  cursor: pointer;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.checkboxtoggler.hidden {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.line-1 {
+  background: #ffffff;
+  height: 0.25em;
+  border-radius: 10em;
+  transition-duration: 500ms;
+}
+
+.line-2 {
+  width: 70%;
+  background: #ffffff;
+  height: 0.25em;
+  border-radius: 10em;
+  margin-left: 10%;
+  transition-duration: 500ms;
+}
+
+.line-3 {
+  background: #ffffff;
+  height: 0.25em;
+  border-radius: 10em;
+  transition-duration: 500ms;
+}
+
+#toggleChecker {
+  height: 2em;
+  width: 100%;
+  display: none;
+}
+
+#toggleChecker:checked + #togglerLable .checkboxtoggler .line-1 {
+  -webkit-transform: rotate(45deg) translateY(0.7em) translateX(0.7em);
+  -ms-transform: rotate(45deg) translateY(0.7em) translateX(0.7em);
+  transform: rotate(45deg) translateY(0.7em) translateX(0.7em);
+  background-color: aqua;
+}
+
+#toggleChecker:checked + #togglerLable .checkboxtoggler .line-2 {
+  width: 100%;
+  margin-left: 0;
+  -webkit-transform: rotate(-45deg) translateY(0em) translateX(0.1em);
+  -ms-transform: rotate(-45deg) translateY(0em) translateX(0.1em);
+  transform: rotate(-45deg) translateY(0em) translateX(0.1em);
+  background-color: aqua;
+}
+
+#toggleChecker:checked + #togglerLable .checkboxtoggler .line-3 {
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+/*estilo da primeira seção*/
+.orgnize-section {
+  display: grid;
+  align-items: center;
+  justify-items: center;
+}
+
+#introduction {
+  height: 100dvh;
+  height: calc(var(--vh) * 100);
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+/*estilo do título da primeira seção*/
+.title {
+  position: relative;
+  width: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: -50dvh;
+  font-size: 5 rem;
+  font-weight: bold;
+  letter-spacing: 6px; /*ver se precisa alterar depois de escolher a fonte*/
+  z-index: 1;
+}
+
+.title-site {
+  font-size: 90px;
+  font-weight: bold;
+  letter-spacing: 6px;
+  white-space: nowrap;
+  overflow: hidden;
+  border-right: 4px solid orange; /* cursor */
+  width: 0; /* necessário para iniciar a animação */
+  animation: typing 3s steps(var(--characters)) forwards,
+             blink-caret 0.7s step-end infinite;
+}
+/*
+.title::after {
+  content: " |";
+  animation: blink 1s infinite;
+  animation-timing-function: step-end;
+}*/
+
+/* Animação de digitação */
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
+}
+
+/* Animação do cursor */
+@keyframes blink-caret {
+  from, to { border-color: transparent }
+  50% { border-color: orange; }
+}
+
+
+#title-portifolio {
+  display: flex;
+  justify-content: flex-end;
+  margin-left: 30%;
+}
+
+#apresentacao {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  /* A seção de fundo (Introduction) precisa estar visível por baixo */
+  z-index: 1; 
+  background-color: transparent;
+}
+
+/* O "Curtain" é o que realmente faz a curva e tem a cor */
+.reveal-curtain {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 110%;
+  background-color: #2a276b; /* Cor da seção */
+  /* Curva inicial: UMA ELIPSE PERFEITAMENTE CENTRALIZADA */
+  clip-path: ellipse(150% 100% at 50% 100%);
+  z-index: 2;
+}
+
+.campo-apresentacao {
+  position: relative;
+  z-index: 3; /* Conteúdo acima do curtain */
+  width: 100%;
+  min-height: 100vh;
+  display: grid;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-top: 100px; /* Reduzido o padding já que não tem overlap */
+}
+
+
+.text-rolante {
+}
+
+#title-my-projects {
+  font-size: 36px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+
+
+
+/*hovers e animações*/
+@keyframes nav-x {
+}
+
+/*estilo para dispositivos menores*/
+/* Breakpoints: 1024/900/600 são faixas comuns.
+   Ajustes de tipografia e visibilidade para dispositivos menores. */
+@media (max-width: 900px) {
+  .letter-otavio,
+  .letter-henrique,
+  .letter-portifolio {
+    font-size: 36px;
+    transition: 1s ease-in;
+  }
+}
+
+@media (max-width: 600px) {
+}
+
+@media (max-width: 1024px) {
+  .menu-hamburguer {
+    display: block;
+  }
+
+  .links-esquerda a {
+    display: none;
+  }
+}
+
+/* Efeito curvo para telas grandes (desktops) */
+
+/*@media (min-width: 1025px) {
+  .navbar {
+    border-radius: 0 0 50px 50px;
+    background-color: #1a1f24;
+    width: 90%;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .navbar::before {
+    content: "";
+    position: absolute;
+    top: -60%;
+    left: -10px;
+    right: -10px;
+    height: 130%;
+    background-color: #f1f1e6;
+    border-bottom-left-radius: 100px 50px;
+    border-bottom-right-radius: 100px 50px;
+    z-index: 0;
+  }
+
+  .nav-links {
+    position: relative;
+    z-index: 1;
+  }
+
+  .menu-hamburguer {
+    display: none;
+  }
+
+  .links-esquerda a {
+    display: inline-block;
+    margin-right: 20px;
+    color: #111;
+    font-weight: bold;
+    text-decoration: none;
+  }
+
+  .link-direita p {
+    color: white;
+    font-weight: bold;
+  }
+}
+
+/* ============================================
+   PORTFOLIO CARDS - PROJETOS
+   ============================================ */
+
+#section-projs {
+  position: relative;
+  clip-path: ellipse(150% 100% at 50% 100%);
+  margin-top: 0; /* Removido o overlap negativo */
+  background-color: #111318;
+  z-index: 6;
+  padding-top: 100px;
+}
+
+/* Grid de portfólio: 2 colunas no desktop, centralizado e com espaçamento */
+.portfolio-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 40px;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+/* Card: proporção 16:10, hover de elevação */
+.portfolio-card {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16/10;
+  overflow: hidden;
+  display: block;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  background: #111318;
+  border-radius: 16px;
+}
+
+.portfolio-card:hover {
+  transform: translateY(-8px);
+}
+
+/* Imagem de fundo: cobre 100% do card sem distorção */
+.portfolio-card__image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+}
+
+/* Overlay inferior esquerdo: padding e raio exatamente como no Baker */
+.portfolio-card__info {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  max-width: 85%;
+  display: flex;
+  flex-direction: column;
+  padding: 24px 40px 24px 3.125vw;
+  background: #111318;
+  gap: clamp(20px, 1.667vw, 32px);
+  border-radius: 0 32px 0 0;
+  z-index: 10;
+}
+
+/* Cantos com SVG: elementos 32x32 posicionados fora do overlay */
+.corner-svg {
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  pointer-events: none;
+  z-index: 20;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+.corner-svg--top-left {
+  left: 0;
+  top: -32px;
+  transform: rotate(0deg);
+}
+.corner-svg--bottom-right {
+  right: -32px;
+  bottom: 0;
+  transform: rotate(0deg);
+}
+
+/* Conteúdo textual: título, categoria e empresa */
+.portfolio-card__content {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.portfolio-card__title {
+  font-size: clamp(18px, 2vw, 24px);
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.2;
+}
+.portfolio-card__category {
+  font-size: 14px;
+  color: #ffffff;
+  opacity: 0.9;
+}
+.portfolio-card__company {
+  font-size: 14px;
+  color: #daa520;
+  font-weight: 600;
+}
+
+/* Mobile: uma coluna, padding reduzido no overlay */
+@media (max-width: 768px) {
+  .portfolio-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    padding: 24px 16px;
+  }
+  .portfolio-card__info {
+    max-width: 90%;
+    padding: 20px 24px;
+  }
+}
