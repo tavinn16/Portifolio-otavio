@@ -401,6 +401,16 @@ body::-webkit-scrollbar {
   animation: typing 3s steps(var(--characters)) forwards,
              blink-caret 0.7s step-end infinite;
 }
+
+#text-idicacao {
+  position: absolute;
+  transform: translateX(50%);
+  bottom: 20px;
+  font-size: 14px;
+  color: #ffffff;
+  opacity: 0.8;
+}
+
 /*
 .title::after {
   content: " |";
