@@ -307,7 +307,16 @@ function startMainAnimations() {
     }
   });
 
+  //registra os plugins
+  gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
 
+  // Criar o scroll suave
+const smoother = ScrollSmoother.create({
+  wrapper: "#smooth-wrapper",
+  content: "#smooth-content",
+  smooth: 2.0, // Tempo de "atraso" da rolagem (quanto maior, mais suave/lento)
+  effects: true, // Permite usar data-lag e data-speed nos elementos HTML
+});
   // Se você tiver outras animações (ScrollTrigger, etc), coloque-as aqui
 
 }
