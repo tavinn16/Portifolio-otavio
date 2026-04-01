@@ -192,7 +192,7 @@ document.addEventListener('DOMContentLoaded', function () {
         linksNav?.classList.remove('hidden');
         nameNav?.classList.add('hidden');
         menuBar?.classList.add('hidden');
-        
+
         // Fecha o menu se estiver aberto ao voltar ao topo
         if (menuHamburguer.checked) {
           menuHamburguer.checked = false;
@@ -311,12 +311,50 @@ function startMainAnimations() {
   gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
 
   // Criar o scroll suave
-const smoother = ScrollSmoother.create({
-  wrapper: "#smooth-wrapper",
-  content: "#smooth-content",
-  smooth: 2.0, // Tempo de "atraso" da rolagem (quanto maior, mais suave/lento)
-  effects: true, // Permite usar data-lag e data-speed nos elementos HTML
-});
+  const smoother = ScrollSmoother.create({
+    wrapper: "#smooth-wrapper",
+    content: "#smooth-content",
+    smooth: 2.0, // Tempo de "atraso" da rolagem (quanto maior, mais suave/lento)
+    effects: true, // Permite usar data-lag e data-speed nos elementos HTML
+  });
+
+
+  //efeito de cada frase ir carregando aos poucos de acorod com a rolagem
+  function initTextScroll() {
+    // 1. Dividir o texto em palavras (opcional: use bibliotecas como SplitType para facilitar)
+    const textElement = document.querySelector('#text-apresentacao');
+    const words = textElement.textContent.split(" ");
+    textElement.innerHTML = words.map(word => `<span>${word} </span>`).join("");
+
+    // 2. Criar a Timeline do GSAP vinculada ao Scroll
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: "#apresentacao", // O elemento que ativa a animação
+        start: "top top",         // Começa quando o topo da seção chega no topo da tela
+        end: "+=1500",            // "Trava" a seção por 1500px de scroll
+        pin: true,                // ESTA É A "TRAVADINHA" (Pinning)
+        scrub: 1,                 // Vincula ao scroll com suavização de 1 segundo
+        markers: false            // Mude para true se quiser ver os guias na tela
+      }
+    });
+
+    // 3. Definir a animação das letras/palavras
+    tl.from("#text-apresentacao span", {
+      opacity: 0.4,               // Começa bem clarinho
+      color: "#eeeeee",              // Cor inicial "apagada"
+      stagger: 0.2,               // Faz uma palavra por vez
+      duration: 1,
+      ease: "power2.out"
+    })
+      .to("#text-apresentacao span", {
+        color: "#ffffff",              // Fica branco marcante conforme rola
+        opacity: 1,
+        stagger: 0.2,
+        duration: 1
+      }, 0); // O '0' faz com que essa animação comece junto com a anterior
+  }
+  initTextScroll();
+
   // Se você tiver outras animações (ScrollTrigger, etc), coloque-as aqui
 
 }

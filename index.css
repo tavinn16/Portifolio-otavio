@@ -446,6 +446,7 @@ body::-webkit-scrollbar {
   /* A seção de fundo (Introduction) precisa estar visível por baixo */
   z-index: 1; 
   background-color: transparent;
+  overflow: hidden;
 }
 
 /* O "Curtain" é o que realmente faz a curva e tem a cor */
@@ -471,6 +472,23 @@ body::-webkit-scrollbar {
   align-items: center;
   justify-content: center;
   padding-top: 100px; /* Reduzido o padding já que não tem overlap */
+}
+
+#title-apresentacao {
+  font-size: 36px;
+  font-weight: bold;
+  padding-left: 10%;
+}
+
+#text-apresentacao {
+  font-size: 2.5rem;
+  padding: 10%;
+  padding-bottom: -10%;
+}
+
+#text-apresentação span {
+  display: inline-block;
+  white-space: pre; /* Mantém os espaços entre as palavras */
 }
 
 
