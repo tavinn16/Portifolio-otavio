@@ -478,6 +478,8 @@ body::-webkit-scrollbar {
   font-size: 36px;
   font-weight: bold;
   padding-left: 10%;
+  margin-top: -5rem;
+  margin-bottom: -5rem;
 }
 
 #text-apresentacao {
@@ -490,7 +492,22 @@ body::-webkit-scrollbar {
   display: inline-block;
   white-space: pre; /* Mantém os espaços entre as palavras */
 }
+ 
+#text-apresentacao-secundar {
+  font-size: 18px;
+  padding: 10%;
+  margin-top: -10%;
+  text-align: center;
+  color: #ffffff;
+  opacity: 0.8;
+  font-family: 'Roboto', sans-serif;
+  letter-spacing: 1px;
+}
 
+#text-apresentacao-secundar span {
+  display: inline-block;
+  white-space: pre;
+}
 
 /*aqui ficará a parte do estilo do texto rolante*/
 
@@ -501,8 +518,40 @@ body::-webkit-scrollbar {
   text-align: center;
 }
 
+.btn-with-arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: -5%;
+}
 
+.btn-with-arrow:hover {
+  /*colocar aqui as animações de cor e movimento do botão*/
 
+}
+
+#button-apresentacao {
+  display: inline-flex;
+  align-items: center;
+  padding: 15px 25px;
+  background-color: #6c63ff;
+  color: white;
+  text-decoration: none;
+  font-size: 20px;
+  border: none;
+  border-radius: 50px;
+  transition: background-color 0.3s ease;
+}
+
+#arrow-btn-about {
+  position: relative;
+  width: 50px;
+  height: 50px;
+  border: none;
+  border-radius: 50%;
+  margin-left: -10px;
+  background-color: #6c63ff;
+}
 
 /*hovers e animações*/
 @keyframes nav-x {
